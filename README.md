@@ -122,3 +122,36 @@ db.collectionName.count();
 ```
 db.collectionName.find().limit(<number>);
 ```
+* **To select only the required attributes**
+* __find()__ method takes 2 arguments , first one is the filteration criteria and the second one is the attributes to select.
+```
+db.collectionName.find({},{name:1,address:1});
+```
+* The above command selects only name and address attribute of the documents.
+```
+db.colllectionName.find({},{phone:0});
+```
+* The above command selects all the attributes except the phone.
+* 0 and 1 can be interchanged with true and false.
+* Example :
+```
+db.temp.find({_id:'10006546'},{name:1,images:1});
+```
+* To find the **COUNT** of matching documents ,
+```
+db.collectionName.find({},{}).count();
+```
+* Examples ,
+```
+db.temp.find({minimum_nights:'2'}).count();
+```
+```
+db.temp.find({minimum_nights:'2'},{name:true}).limit(1);
+```
+```
+db.temp.find({minimum_nights:'2'},{name:true}).limit(1).toArray();
+``` 
+* The below one gives **TYPE ERROR**
+```
+db.temp.findOne({minimum_nights:'2'},{name:true}).toArray();
+```
