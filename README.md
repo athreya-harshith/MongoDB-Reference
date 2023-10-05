@@ -112,3 +112,13 @@ db.courses.find({_id:ObjectId('651e2eb9e41d11ce0060bf66')});
 * `BSON` : Binary JSON
 * MongoDB internally use BSON to store data in the disk
 * It converts the data to JSON when it loads
+  
+## Dealing With Collections (Continued..)
+* To count the number of documents inside a collection ,
+```
+db.collectionName.count();
+```
+* **LIMIT the Output in MongoDB**
+```
+db.collectionName.find().limit(<number>);
+```
