@@ -37,5 +37,11 @@ show databases;
 ```mongodb
 show dbs;
 ```
+--
+* To create a new database use :
+```
+use <db-name>;
+```
+* The above command creates a new database . It wont enlist it utill the created DB has atleast one collection.
 
 
