@@ -99,6 +99,12 @@ db.courses.find(ObjectId('651e2eb9e41d11ce0060bf66'))
 ```
 db.courses.find({_id:ObjectId('651e2eb9e41d11ce0060bf66')});
 ```
+## RDBMS and NoSQL
+> In **RDBMS** Data will be stored in form of tables : MySQL, MariaDB,PgSQL ...
+> We use **SQL** for create , read ,write, update and deleting the records.
 
+> NoSQL : Not Only SQL , is a category of DB which stores data in non relational fashion.
+> It Doesnot use tables.
+> to retrieve , insert , deleting can be done without SQL.
 
 
