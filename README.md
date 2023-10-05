@@ -28,7 +28,7 @@
 ## Queries With MongoDB in mongo-shell
 * Usage of `mongo` command in terminal is not preffered as `mongosh` has superseeded it.
 * Use `mongosh` for starting mongoshell.
-------
+---
 * To show the databases , use :
 ```mongodb
 show databases;
