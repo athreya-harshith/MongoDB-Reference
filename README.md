@@ -24,7 +24,16 @@
 * Open Source
 * NoSQL 
 * Document Based DB
-  
+* Highly Scalable DB as it has distributed architecture
+* High Performance
+* Flexible
+* Well Suited For wide use cases
+* Query language used here is easy
+* Good to handle Unstructured data
+* Cloud Platform support
+---
+> Relational Databases are preferred to have vertical scaling and NoSQL DataBases are preferred to have horizontal scaling.
+--
 ## Queries With MongoDB in mongo-shell
 * Usage of `mongo` command in terminal is not preffered as `mongosh` has superseeded it.
 * Use `mongosh` for starting mongoshell.
@@ -81,6 +90,14 @@ db.courses.find({ type: 'Practical' });
 * To find the first document with some condition , 
 ```
 db.courses.findOne({ type: 'Practical' });
+```
+* To find the document with an id , 
+```
+db.courses.find(ObjectId('651e2eb9e41d11ce0060bf66'))
+```
+* Or it can also be retrieved by 
+```
+db.courses.find({_id:ObjectId('651e2eb9e41d11ce0060bf66')});
 ```
 
 
