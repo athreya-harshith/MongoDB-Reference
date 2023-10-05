@@ -50,8 +50,37 @@ use <db-name>;
 db.createCollection("collectionName");
 ```
 * This creates a new collection with the name given , and it give the following as a result.
-```json
+```
 { ok: 1 }
+```
+* To Enlist all the documents within a collection , use :
+```
+db.collectionName.find();
+```
+* To Insert a single data into a collection,
+```
+db.courses.insertOne({name:"Physics",type:"Practical",marks:100});
+```
+* To insert multiple data into a collection,
+```
+db.courses.insertMany([{name:"English",type:"Theory"},{name:"P.Ed",mandatory:"NO"}]);
+```
+* **FILTERS**
+* To find the first document inside a collection , 
+```
+db.courses.findOne();
+```
+* To find all the document inside a collection,
+```
+db.courses.find();
+```
+* To find a document with some condition , 
+```
+db.courses.find({ type: 'Practical' });
+```
+* To find the first document with some condition , 
+```
+db.courses.findOne({ type: 'Practical' });
 ```
 
 
