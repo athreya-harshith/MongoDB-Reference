@@ -8,7 +8,7 @@
 ## NoSQL 
 * NoSQL stores data in a non-relational model.
 * It doesnot use tables to store data , rather it can be any of the following ones:
-    * **Graph Based** 
+    * **Graph Based** (Neo4j)
     * **Key-Value** (Reddis)
     * **Document Based** (MongoDb)
 ## MongoDb
@@ -107,4 +107,8 @@ db.courses.find({_id:ObjectId('651e2eb9e41d11ce0060bf66')});
 > It Doesnot use tables.
 > to retrieve , insert , deleting can be done without SQL.
 
-
+## MongoDB Internal Data Storage 
+* `JSON` : JavaScript Object Notation
+* `BSON` : Binary JSON
+* MongoDB internally use BSON to store data in the disk
+* It converts the data to JSON when it loads
