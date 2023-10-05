@@ -155,7 +155,7 @@ db.temp.find({minimum_nights:'2'},{name:true}).limit(1).toArray();
 ```
 db.temp.findOne({minimum_nights:'2'},{name:true}).toArray();
 ```
-** **ORDERING The Data**
+* **ORDERING The Data**
 * Ordering the data refers to arranging the result in Ascending or in Descending Order.
 * To Order data , sort() method is available which takes an object as input
 * key is the attribute according to which the data must be sorted 
