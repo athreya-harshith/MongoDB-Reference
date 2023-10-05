@@ -37,11 +37,22 @@ show databases;
 ```mongodb
 show dbs;
 ```
---
+---
 * To create a new database use :
 ```
 use <db-name>;
 ```
 * The above command creates a new database . It wont enlist it utill the created DB has atleast one collection.
+---
+**DEALING WITH COLLECTIONS**
+* To create a new collection , use :
+```
+db.createCollection("collectionName");
+```
+* This creates a new collection with the name given , and it give the following as a result.
+```json
+{ ok: 1 }
+```
+
 
 
