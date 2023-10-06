@@ -124,6 +124,7 @@ db.collectionName.find().limit(<number>);
 ```
 * **To select only the required attributes**
 * __find()__ method takes 2 arguments , first one is the filteration criteria and the second one is the attributes to select.
+* Selecting which key-value pairs as a part of result is called as **__Projection__**
 ```
 db.collectionName.find({},{name:1,address:1});
 ```
@@ -165,3 +166,20 @@ db.temp.findOne({minimum_nights:'2'},{name:true}).toArray();
 db.temp.find({},{name:true,minimum_nights:true}).sort({minimum_nights:-1});
 ```
 * If the minimum_nights value for some documents are same , the data will be sorted according the second key in the sort functions input object.
+* **DELETING Document**
+* To delete a document use ,
+```
+db.collectionName.deletOne({key:value});
+```
+* Example 
+```
+db.temp.deleteOne({_id:'19760228'});
+```
+ To delete **Multiple** Documents use ,
+```
+db.collectionName.deleteMany({key:value});
+```
+* Example 
+```
+db.temp.deleteMany({minimum_nights:'2'});
+```
