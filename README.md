@@ -358,5 +358,23 @@ db.data.createIndex({elevation:1});
     >
     >When you have a compound key - The order starts to matter.
     >
+* Creating a **Compound Index**
+* Consider the below operation ,
+```
+db.data.find({$and:[{elevation:{$gt:1000}},{elevation:{$lt:10000}}],"airTemperature.value":{$gt:3}}).explain("executionStats");
+```
+* Now creating a Compound Index on elevation and "airTemperature.value"
+```
+db.data.createIndex({elevation:1,"airTemperature.value":1});
+```
+* To observe the time differences , 
+```
+db.data.find().sort({"dewPoint.value":1}).explain("executionStats");
+```
+* Now create an Index ,
+```
+ db.data.createIndex({"dewPoint.value":1});
+```
+* After creating Index , execute the previous query .
 
 
