@@ -257,3 +257,101 @@ db.data.find({$and:[{elevation:{$lte:10000}},{elevation:{$gt:9999}}]}).count();
 ```
 db.data.find({callLetters:{$nin:['0BVZ', '0JSV', '2100', '3DRO']}}).count();
 ```
+* ### Indexing
+* Any query executed puts loads on DB Sever ,
+* To reduce the load , many techniques exists and one of them is **Indexing**
+* **Indexing** maintains separated DataStructure for DB operations and it will relay upon that DS to achieve optimization.
+* In RDBMS B+ trees.
+* For Strings Trie ...
+* To know the explanation of a query use ,
+```
+db.data.find({type:'FM-13'}).explain("executionStats");
+```
+* This gives the explantion regarding executionStats.
+* The response contains `queryPlan` key that tells about the stratege used for searching.
+```
+  queryPlanner: {
+    namespace: 'sample_weather_data.data',
+    indexFilterSet: false,
+    parsedQuery: { type: { '$eq': 'FM-13' } },
+    queryHash: '148B1959',
+    planCacheKey: '71B95BDC',
+    maxIndexedOrSolutionsReached: false,
+    maxIndexedAndSolutionsReached: false,
+    maxScansToExplodeReached: false,
+    winningPlan: {
+      queryPlan: {
+        stage: 'COLLSCAN',
+        planNodeId: 1,
+        filter: { type: { '$eq': 'FM-13' } },
+        direction: 'forward'
+      },
+      slotBasedPlan: {
+        slots: '$$RESULT=s5 env: { s2 = Nothing (SEARCH_META), s1 = TimeZoneDatabase(America/Inuvik...Pacific/Guadalcanal) (timeZoneDB), s7 = "FM-13", s3 = 1696658595064 (NOW) }',
+        stages: '[1] filter {traverseF(s4, lambda(l1.0) { ((l1.0 == s7) ?: false) }, false)} \n' +
+          '[1] scan s5 s6 none none none none lowPriority [s4 = type] @"45bcfa25-b5d0-4e52-b81d-8b337c63b086" true false '
+      }
+    },
+    rejectedPlans: []
+  }
+```
+* In `queryPlan` , `stage` has **COLLSCAN** method used for finding , which is like linearSearch .
+* Consider the following operation ,
+```
+db.data.find({$and:[{elevation:{$gt:1000}},{elevation:{$lt:10000}}]}).explain("executionStats");
+```
+* In the response , executionStats is ,
+```
+executionStats: {
+    executionSuccess: true,
+    nReturned: 9471,
+    executionTimeMillis: 16,
+    totalKeysExamined: 0,
+    totalDocsExamined: 10000,
+    executionStages: {
+      stage: 'filter',
+      planNodeId: 1,
+      nReturned: 9471,
+      executionTimeMillisEstimate: 17,
+      opens: 1,
+      closes: 1,
+      saveState: 10,
+      restoreState: 10,
+      isEOF: 1,
+      numTested: 10000,
+      filter: '(traverseF(s4, lambda(l1.0) { ((l1.0 < s7) ?: false) }, false) && traverseF(s4, lambda(l2.0) { ((l2.0 > s8) ?: false) }, false)) ',
+      inputStage: {
+        stage: 'scan',
+        planNodeId: 1,
+        nReturned: 10000,
+        executionTimeMillisEstimate: 17,
+        opens: 1,
+        closes: 1,
+        saveState: 10,
+        restoreState: 10,
+        isEOF: 1,
+        numReads: 10000,
+        recordSlot: 5,
+        recordIdSlot: 6,
+        fields: [ 'elevation' ],
+        outputSlots: [ Long("4") ]
+      }
+    }
+  },
+```
+* Here the `executionTimeMillis` is `16` using `COLLSCAN` strategy.
+* If Index is created on elevation ,
+```
+db.data.createIndex({elevation:1});
+```
+* After creating Index then if the previous query is executed , then it takes less time , and winningPlan changes to `FETCH` . The difference is even more visible when the database is too huge .
+* The above Index for single field . To have multiple fields **Compound Indexing** can be done.
+* The value for `elevation` key while creating the index tell the order . 1 for ascending and -1 for descending.
+* Why does the order matters in indexing ??
+    > MongoDB concatenates the compound key in some way and uses it as the key in a BTree.
+    >When finding single items - The order of the nodes in the tree is irrelevant.
+    >If you are returning a range of nodes - The elements close to each other will be down the same branches of the tree. The closer the nodes are in the range the quicker they can be retrieved.
+    > With a single field index - The order won't matter. If they are close together in ascending order they will also be close together in descending order.
+    >When you have a compound key - The order starts to matter.
+
+
