@@ -183,3 +183,45 @@ db.collectionName.deleteMany({key:value});
 ```
 db.temp.deleteMany({minimum_nights:'2'});
 ```
+* ### <ins>Updating Documents</ins>
+* To update the documents , we have `updateOne({<filteration-criteria>},{})` and `updateMany({<filteration-criteria>},{})` functions.
+* Both the functions take 2 objects as arguments and first one is filteratio criteria , to decide what document to be updated .
+* Second one uses different **operators** for different types of updations.
+* `$set` this operator sets the new value for the mentioned key.
+* Example ,
+```
+ db.data.updateOne({ _id: ObjectId("5553a998e4b02cf7151190b8")},{$set:{dataSource:'5'}});
+```
+* `$inc` this operator increments the key according to the given value (if value is +ve incremented and decremented if -ve).
+* Example ,
+```
+db.data.updateOne({_id:ObjectId("5553a998e4b02cf7151190b8")},{$inc:{elevation:1}});
+```
+* Can also use multiple operators in one query 
+```
+db.data.updateOne({_id:ObjectId("5553a998e4b02cf7151190b8")},{$inc:{elevation:1},$set:{dataSource:'5'}});
+```
+* The response for updatOne() will be like ,
+```
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+}
+```
+* using updateMany() ,
+```
+db.data.updateMany({callLetters:'PLAT'},{$set:{elevation:10000}});
+```
+* The response will be like,
+```
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 528,
+  modifiedCount: 528,
+  upsertedCount: 0
+}
+```
