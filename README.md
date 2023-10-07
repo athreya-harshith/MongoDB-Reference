@@ -250,3 +250,10 @@ db.data.find({$and:[{elevation:{$lte:10000}},{elevation:{$gt:9999}}]}).count();
 ```
 > To checkout what all the distinct values present for a key , we can use
 >```db.data.distinct("key-name")```
+* TO find in or not in a set of values ,
+```
+ db.data.find({callLetters:{$in:['0BVZ', '0JSV', '2100', '3DRO']}}).count();
+```
+```
+db.data.find({callLetters:{$nin:['0BVZ', '0JSV', '2100', '3DRO']}}).count();
+```
