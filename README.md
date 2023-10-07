@@ -398,3 +398,11 @@ db.data.createIndex({type:"text"});
 db.data.find({$text:{$search:'SAO'}});
 ```
 * Using the above one with explain() method gives the winningPlan as `TEXT_MATCH`.
+## Pagingation in MongoDB
+* skip() function skips the mentioned number of records.
+* Example ,
+```
+db.data.find().skip(10).limit(1);
+```
+* The above query skips 10 records and shows 1 record after the 10 records . (11th record)
+* Using this **Pagination** can be done.
