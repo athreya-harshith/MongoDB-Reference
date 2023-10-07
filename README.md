@@ -263,7 +263,12 @@ db.data.find({callLetters:{$nin:['0BVZ', '0JSV', '2100', '3DRO']}}).count();
 * **Indexing** maintains separated DataStructure for DB operations and it will relay upon that DS to achieve optimization.
 * In RDBMS B+ trees.
 * For Strings Trie ...
-* To know the explanation of a query use ,
+* **MongoDB** by default provides indexing on `_id`.
+* To get all the indexes use ,
+```
+ db.data.getIndexes();
+```
+* To know the explanation of how a query is executed use ,
 ```
 db.data.find({type:'FM-13'}).explain("executionStats");
 ```
@@ -349,7 +354,7 @@ db.data.createIndex({elevation:1});
 * The value for `elevation` key while creating the index tell the order . 1 for ascending and -1 for descending.
 * Why does the order matters in indexing ??
     > MongoDB concatenates the compound key in some way and uses it as the key in a BTree.
-    --
+    >
     >When finding single items - The order of the nodes in the tree is irrelevant.
     >
     >If you are returning a range of nodes - The elements close to each other will be down the same branches of the tree. The closer the nodes are in the range the quicker they can be retrieved.
@@ -376,5 +381,4 @@ db.data.find().sort({"dewPoint.value":1}).explain("executionStats");
  db.data.createIndex({"dewPoint.value":1});
 ```
 * After creating Index , execute the previous query .
-
-
+* `totalDocsExamined` will also help in understanding the optimizations applied after indexing.
