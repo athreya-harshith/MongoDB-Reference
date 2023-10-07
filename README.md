@@ -349,9 +349,14 @@ db.data.createIndex({elevation:1});
 * The value for `elevation` key while creating the index tell the order . 1 for ascending and -1 for descending.
 * Why does the order matters in indexing ??
     > MongoDB concatenates the compound key in some way and uses it as the key in a BTree.
+    ---
     >When finding single items - The order of the nodes in the tree is irrelevant.
+    ---
     >If you are returning a range of nodes - The elements close to each other will be down the same branches of the tree. The closer the nodes are in the range the quicker they can be retrieved.
+    ---
     > With a single field index - The order won't matter. If they are close together in ascending order they will also be close together in descending order.
+    ---
     >When you have a compound key - The order starts to matter.
+    ---
 
 
