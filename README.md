@@ -382,3 +382,19 @@ db.data.find().sort({"dewPoint.value":1}).explain("executionStats");
 ```
 * After creating Index , execute the previous query .
 * `totalDocsExamined` will also help in understanding the optimizations applied after indexing.
+* ### Indexing On Strings 
+* Instead of giving 1 and -1 in the createIndex function argument , use `text` .
+* Example ,
+```
+db.data.createIndex({type:"text"});
+```
+* After this normal retrieval of information like the below one doesnot give the optimized results  .
+```
+ db.data.find({type:'SAO'}).explain("executionStats");
+```
+* Still the above query uses `COLLSCAN` strategy.
+* To get the optimized retrieval , use the following.
+```
+db.data.find({$text:{$search:'SAO'}});
+```
+* Using the above one with explain() method gives the winningPlan as `TEXT_MATCH`.
