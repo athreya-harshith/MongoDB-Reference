@@ -249,6 +249,4 @@ db.data.find({elevation:{$lt:9998}}).count();
 db.data.find({$and:[{elevation:{$lte:10000}},{elevation:{$gt:9999}}]}).count();
 ```
 > To checkout what all the distinct values present for a key , we can use
-> ```
-db.data.distinct("key-name");
-```
+>```db.data.distinct("key-name")```
