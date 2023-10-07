@@ -406,3 +406,5 @@ db.data.find().skip(10).limit(1);
 ```
 * The above query skips 10 records and shows 1 record after the 10 records . (11th record)
 * Using this **Pagination** can be done.
+## Aggregations And Pipelines
+* `db.collectionName.aggregate()`
