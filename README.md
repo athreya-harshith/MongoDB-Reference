@@ -183,7 +183,7 @@ db.collectionName.deleteMany({key:value});
 ```
 db.temp.deleteMany({minimum_nights:'2'});
 ```
-* ### <ins>Updating Documents</ins>
+* ### Updating Documents
 * To update the documents , we have `updateOne({<filteration-criteria>},{})` and `updateMany({<filteration-criteria>},{})` functions.
 * Both the functions take 2 objects as arguments and first one is filteratio criteria , to decide what document to be updated .
 * Second one uses different **operators** for different types of updations.
@@ -224,4 +224,31 @@ db.data.updateMany({callLetters:'PLAT'},{$set:{elevation:10000}});
   modifiedCount: 528,
   upsertedCount: 0
 }
+```
+* ### Operators
+* In order to provide different comparsions for the filteration criteria for a key , operators are used.
+* Some operators are
+  * `$ne` not equal to
+  * `$lt` less than
+  * `$gt` greater than
+  * `$lte` less than equal to 
+  * `$gte` greater than equal to
+  * `$and` 
+  * `$or`
+  * `$in` value in some set
+  * `$nin` value not in some set
+* Examples ,
+```
+db.data.find( { callLetters: { $ne: 'PLAT' } }).count();
+```
+```
+db.data.find({elevation:{$lt:9998}}).count();
+```
+* To give the range for a value , 
+```
+db.data.find({$and:[{elevation:{$lte:10000}},{elevation:{$gt:9999}}]}).count();
+```
+> To checkout what all the distinct values present for a key , we can use
+> ```
+db.data.distinct("key-name");
 ```
